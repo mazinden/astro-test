@@ -1,0 +1,152 @@
+---
+title: UI-компоненты Starlight
+description: Tabs, Card, Aside, Steps, Badge, LinkCard, FileTree — на одной странице.
+sidebar:
+  order: 2
+---
+
+import { Tabs, TabItem, Card, CardGrid, LinkCard, Aside, Steps, Badge, FileTree } from '@astrojs/starlight/components';
+
+Эта страница демонстрирует встроенные компоненты Starlight. Все импортируются из `@astrojs/starlight/components` и работают только в `.mdx`-файлах.
+
+## Tabs
+
+<Tabs>
+  <TabItem label="curl">
+    ```bash
+    curl https://api.documentat.io/api/prod/users \
+      -H "Token: $API_TOKEN"
+    ```
+  </TabItem>
+  <TabItem label="JavaScript">
+    ```js
+    const res = await fetch('https://api.documentat.io/api/prod/users', {
+      headers: { Token: process.env.API_TOKEN },
+    });
+    const users = await res.json();
+    ```
+  </TabItem>
+  <TabItem label="Python">
+    ```python
+    import requests
+
+    r = requests.get(
+        "https://api.documentat.io/api/prod/users",
+        headers={"Token": API_TOKEN},
+    )
+    users = r.json()
+    ```
+  </TabItem>
+</Tabs>
+
+С синхронизацией табов на всех страницах через `syncKey`:
+
+<Tabs syncKey="pkg">
+  <TabItem label="npm">`npm i starlight-openapi`</TabItem>
+  <TabItem label="pnpm">`pnpm add starlight-openapi`</TabItem>
+  <TabItem label="yarn">`yarn add starlight-openapi`</TabItem>
+</Tabs>
+
+## Card и CardGrid
+
+<CardGrid>
+  <Card title="Быстрый старт" icon="rocket">
+    Первый запрос к API за пять минут.
+  </Card>
+  <Card title="Аутентификация" icon="approve-check">
+    Как подписывать запросы токеном.
+  </Card>
+  <Card title="API Reference" icon="open-book">
+    Полное описание эндпоинтов и схем.
+  </Card>
+  <Card title="Примеры" icon="puzzle">
+    Готовые сценарии работы с API.
+  </Card>
+</CardGrid>
+
+## LinkCard
+
+`LinkCard` — карточка-ссылка, удобно для навигации между разделами.
+
+<CardGrid>
+  <LinkCard
+    title="Создание пользователя"
+    description="POST /users — пример запроса и ответа."
+    href="/quickstart/"
+  />
+  <LinkCard
+    title="Изменение части данных"
+    description="PATCH /users/{id} — частичное обновление."
+    href="/examples/patch-user/"
+  />
+</CardGrid>
+
+## Aside
+
+`Aside` бывает четырёх типов:
+
+<Aside type="note">
+  По умолчанию — нейтральная заметка. Подходит для дополнительного контекста.
+</Aside>
+
+<Aside type="tip" title="Совет">
+  Сохраняйте токен в переменной окружения, а не в коде.
+</Aside>
+
+<Aside type="caution">
+  При смене `email` через `PATCH` пользователю придётся подтвердить новый адрес.
+</Aside>
+
+<Aside type="danger">
+  Никогда не публикуйте `Token` в публичных репозиториях — отзывайте скомпрометированные токены немедленно.
+</Aside>
+
+## Steps
+
+<Steps>
+
+1. Получите персональный токен и сохраните его в переменную окружения.
+
+2. Сделайте `POST /users` с минимальным набором обязательных полей.
+
+3. Сохраните `id` из ответа — он понадобится для последующих запросов.
+
+4. Проверьте создание через `GET /users/{id}`.
+
+</Steps>
+
+## Badge
+
+Метки полезны рядом с пунктами меню или заголовками. Поддерживаются варианты `note`, `tip`, `danger`, `caution`, `success`.
+
+- Эндпоинт <Badge text="Новое" variant="success" /> добавлен в версии 1.2.
+- Метод <Badge text="Beta" variant="caution" /> может измениться без предупреждения.
+- Поле <Badge text="Deprecated" variant="danger" /> будет удалено в версии 2.0.
+- Раздел <Badge text="Draft" variant="note" /> ещё не финализирован.
+
+Размер задаётся через `size`:
+
+<Badge text="small" size="small" />
+<Badge text="medium" size="medium" />
+<Badge text="large" size="large" />
+
+## FileTree
+
+<FileTree>
+
+- src
+  - content
+    - docs
+      - **index.mdx** главная страница
+      - overview.md
+      - quickstart.md
+      - authentication.md
+      - examples/
+        - patch-user.md
+        - components.mdx
+  - schemas
+    - openapi.yaml
+- astro.config.mjs
+- package.json
+
+</FileTree>
