@@ -5,6 +5,8 @@ import starlightOpenAPI, { openAPISidebarGroups } from 'starlight-openapi';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://mazinden.github.io',
+	base: '/astro-test',
 	integrations: [
 		starlight({
 			title: 'Сервис по работе с пользователями',
